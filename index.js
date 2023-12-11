@@ -2,8 +2,11 @@
 const apiKey = "67899b85e4595583171b402a1ab10d0b";
 const apiUrl = "https://api.openweathermap.org/data/2.5/weather?";
 
-async function checkWeather(){
-    const response = await fetch(apiUrl + `&appid=${apiKey}&units=metric&q=vancouver`);
+const searchBox = document.querySelector(".search input");
+const searchBtn = document.querySelector(".search button");
+
+async function checkWeather(city){
+    const response = await fetch(apiUrl + `&appid=${apiKey}&units=metric&q=${city}`);
     var data = await response.json();
 
     console.log(data);
@@ -14,4 +17,7 @@ async function checkWeather(){
     document.querySelector('.wind').innerHTML = Math.round(data.wind.speed) + "km/h";
 }
 
-checkWeather();
+searchBtn.addEventListener("click", () => {
+    checkWeather(searchBox.value);
+});
+
