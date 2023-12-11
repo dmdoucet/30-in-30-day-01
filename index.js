@@ -8,6 +8,14 @@ const weatherIcon = document.querySelector(".weather-icon");
 
 async function checkWeather(city){
     const response = await fetch(apiUrl + `&appid=${apiKey}&units=metric&q=${city}`);
+
+    if (response.status == 404) {
+        document.querySelector(".error").style.display = "block";
+        document.querySelector(".weather").style.display = "none";
+    } else {
+        document.querySelector(".error").style.display = "none";
+    }
+
     var data = await response.json();
 
     
@@ -37,5 +45,8 @@ async function checkWeather(city){
 searchBtn.addEventListener("click", () => {
     checkWeather(searchBox.value);
 });
+
+
+
 
 
